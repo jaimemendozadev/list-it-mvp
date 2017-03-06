@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import ListMaker from './list_maker.jsx';
+
 
 class App extends Component {
     constructor(props){
@@ -8,7 +10,9 @@ class App extends Component {
 
     render(){
       return(
-          <h1>Please let this work</h1>
+        <div>
+          <ListMaker />
+        </div>
       )
     }
 }
