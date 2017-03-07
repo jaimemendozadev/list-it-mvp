@@ -1,7 +1,12 @@
-var Item = require('./schema.js');
+var schema = require('./schema.js');
+var mongoose = require('mongoose');
+var Item = mongoose.model('item', schema.ListModelSchema);
+
+mongoose.Promise = Promise;  
 
 
-module.exports.addToList = function(req, res, next){
+
+module.exports.addToList = function(req, res){
   console.log("we're inside addToList");
   console.log("req.body.listItem is " + req.body.listItem);
   
@@ -9,14 +14,6 @@ module.exports.addToList = function(req, res, next){
 
   var newListItem = new Item({listItem: item});
 
-  newListItem.save(function(err){
-    if (err){
-      res.send("There was a problem posting to your list.");  
-      res.redirect("https://media.giphy.com/media/2Fazja9DUP7yBZFZK/giphy.gif"); 
-    } else {
-      res.send("List item successfully posted.");
-      res.redirect('/');
-    }  
-  });
+  newListItem.save().then(listItem => res.redirect("/"));
 
 }

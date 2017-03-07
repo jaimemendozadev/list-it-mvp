@@ -6,12 +6,18 @@ var autoIncrement = require('mongoose-auto-increment');
 //Define a schema
 var Schema = mongoose.Schema;
 
+// //Promisify Mongoose
+// var Promise = require('bluebird'); 
+// Promise.promisifyAll(mongoose); 
+
+
+
 var ListModelSchema = new Schema({
   listItem: String,
 });
 
-var Item = mongoose.model('item', ListModelSchema);
+// var Item = mongoose.model('item', ListModelSchema);
 
 module.exports = {
-  Item: Item
+  ListModelSchema: ListModelSchema
 }
