@@ -9863,15 +9863,12 @@ var _list_item2 = _interopRequireDefault(_list_item);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ListView(_ref) {
-  var list = _ref.list,
-      cb = _ref.cb;
-
+function ListView(props) {
   return _react2.default.createElement(
     'ul',
     null,
-    list.map(function (item, idx) {
-      return _react2.default.createElement(_list_item2.default, { item: item, func: cb, key: idx });
+    props.list.map(function (item, idx) {
+      return _react2.default.createElement(_list_item2.default, { item: item, func: props.cb, key: idx, idx: idx });
     })
   );
 }
@@ -9895,17 +9892,13 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ListItem(_ref) {
-  var item = _ref.item,
-      cb = _ref.cb,
-      idx = _ref.idx;
-
+function ListItem(props) {
   return _react2.default.createElement(
     'li',
     { onClick: function onClick(event) {
-        return cb(idx);
+        return props.func(props.idx);
       } },
-    item
+    props.item
   );
 }
 
@@ -22191,8 +22184,6 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'addItem',
     value: function addItem(item) {
-      console.log(event.target.value);
-      console.log("hey there");
       var update = this.state.listOfItems.slice();
       update.push(item);
       this.setState({ listOfItems: update });
@@ -22221,6 +22212,15 @@ var App = function (_Component) {
 }(_react.Component);
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.querySelector('.container'));
+
+/*
+  Note to self, do not destruct props anymore. Causes too many errors.
+
+  Cannot use list item keys to update state in parent app, see:
+  https://facebook.github.io/react/warnings/special-props.html
+
+
+*/
 
 /***/ })
 /******/ ]);

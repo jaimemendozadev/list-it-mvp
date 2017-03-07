@@ -13,8 +13,6 @@ class App extends Component {
     }
 
     addItem(item) {
-      console.log(event.target.value);
-      console.log("hey there");
       let update = this.state.listOfItems.slice();
       update.push(item);
       this.setState({listOfItems: update});
@@ -42,3 +40,12 @@ class App extends Component {
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
+
+/*
+  Note to self, do not destruct props anymore. Causes too many errors.
+
+  Cannot use list item keys to update state in parent app, see:
+  https://facebook.github.io/react/warnings/special-props.html
+
+
+*/

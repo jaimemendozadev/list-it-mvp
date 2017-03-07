@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-function ListItem({item, cb, idx}) {
+function ListItem(props) {
   return(
-    <li onClick={(event) => cb(idx)}>{item}</li>
+    <li onClick={(event) => props.func(props.idx)}>{props.item}</li>
         
   )
 }
