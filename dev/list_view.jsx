@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import ListItem from './list_item.jsx';
 
-function ListView({list, handler}) {
+function ListView({list, cb}) {
   return(
     <ul>
-      {list.map( (item, key) => <ListItem item={item} handler={handler} key={key} />)}
+      {list.map( (item, idx) => <ListItem item={item} func={cb} key={idx} />)}
     </ul>
   )
 }

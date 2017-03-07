@@ -9803,21 +9803,21 @@ var ListMaker = function (_Component) {
 
       return _react2.default.createElement(
         'form',
-        { className: 'form-inline', action: '/add', method: 'POST' },
+        { onSubmit: this.preventSubmit, className: 'form-inline', action: '/add', method: 'POST' },
         _react2.default.createElement(
           'label',
           { htmlFor: 'addListItem' },
           'Write it down!'
         ),
         _react2.default.createElement('input', { className: 'form-control', onClick: function onClick(event) {
-            return handler(event);
+            return addCB(event);
           }, onChange: function onChange(event) {
             return _this2.setState({ fieldDisplay: event.target.value });
           }, name: 'addListItem', id: 'addListItem', value: this.state.fieldDisplay }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
-          { onChange: this.preventSubmit, type: 'submit' },
+          { type: 'submit' },
           'Submit'
         )
       );
@@ -9852,13 +9852,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function ListView(_ref) {
   var list = _ref.list,
-      handler = _ref.handler;
+      cb = _ref.cb;
 
   return _react2.default.createElement(
     'ul',
     null,
-    list.map(function (item, key) {
-      return _react2.default.createElement(_list_item2.default, { item: item, handler: handler, key: key });
+    list.map(function (item, idx) {
+      return _react2.default.createElement(_list_item2.default, { item: item, func: cb, key: idx });
     })
   );
 }
@@ -9884,13 +9884,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function ListItem(_ref) {
   var item = _ref.item,
-      handler = _ref.handler,
-      key = _ref.key;
+      cb = _ref.cb,
+      idx = _ref.idx;
 
   return _react2.default.createElement(
     'li',
     { onClick: function onClick(event) {
-        return handler(key);
+        return cb(idx);
       } },
     item
   );
@@ -22193,12 +22193,11 @@ var App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log("listOfItems " + JSON.stringify(this.state.listOfItems));
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_list_maker2.default, { handler: this.addItem.bind(this) }),
-        _react2.default.createElement(_list_view2.default, { list: this.state.listOfItems, handler: this.deleteItem.bind(this) })
+        _react2.default.createElement(_list_maker2.default, { addCB: this.addItem.bind(this) }),
+        _react2.default.createElement(_list_view2.default, { list: this.state.listOfItems, cb: this.deleteItem.bind(this) })
       );
     }
   }]);

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-function ListItem({item, handler, key}) {
+function ListItem({item, cb, idx}) {
   return(
-    <li onClick={(event) => handler(key)}>{item}</li>
+    <li onClick={(event) => cb(idx)}>{item}</li>
         
   )
 }

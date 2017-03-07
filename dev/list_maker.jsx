@@ -15,12 +15,12 @@ class ListMaker extends Component {
 
   render(){
     return(
-      <form className="form-inline" action="/add" method="POST">
+      <form onSubmit={this.preventSubmit} className="form-inline" action="/add" method="POST">
         <label htmlFor="addListItem">Write it down!</label>
         
-        <input className="form-control" onClick={(event) => handler(event)} onChange={(event) => this.setState({fieldDisplay: event.target.value})}name="addListItem" id="addListItem" value={this.state.fieldDisplay}/><br />
+        <input className="form-control" onClick={(event) => addCB(event)} onChange={(event) => this.setState({fieldDisplay: event.target.value})}name="addListItem" id="addListItem" value={this.state.fieldDisplay}/><br />
 
-        <button onChange={this.preventSubmit} type="submit">Submit</button>
+        <button type="submit">Submit</button>
       </form>
     )
 

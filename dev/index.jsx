@@ -26,11 +26,10 @@ class App extends Component {
     }
 
     render(){
-      console.log("listOfItems " + JSON.stringify(this.state.listOfItems));
       return(
         <div>
-          <ListMaker handler={this.addItem.bind(this)} />
-          <ListView list={this.state.listOfItems} handler={this.deleteItem.bind(this)} />
+          <ListMaker addCB={this.addItem.bind(this)} />
+          <ListView list={this.state.listOfItems} cb={this.deleteItem.bind(this)} />
           
         </div>
       )
