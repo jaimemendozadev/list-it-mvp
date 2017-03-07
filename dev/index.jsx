@@ -42,7 +42,9 @@ class App extends Component {
 ReactDOM.render(<App />, document.querySelector('.container'));
 
 /*
-  Note to self, do not destruct props anymore. Causes too many errors.
+  Note to self, do not destruct props anymore. Causes too many errors. 
+  For example, destructing the props might cause a callback function
+  you pass down from parent to children components to be undefined.
 
   Cannot use list item keys to update state in parent app, see:
   https://facebook.github.io/react/warnings/special-props.html
