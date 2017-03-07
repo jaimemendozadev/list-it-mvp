@@ -8,17 +8,22 @@ class ListMaker extends Component {
       fieldDisplay: "Type something here."
     }
   }
+
+  preventSubmit(event){
+    event.preventDefault();
+  }
+
   render(){
     return(
-      <form action="/add" method="POST">
-        <label for="addListItem">Write it down!</label>
+      <form className="form-inline" action="/add" method="POST">
+        <label htmlFor="addListItem">Write it down!</label>
         
-        <input onChange={(event) => this.setState({fieldDisplay: event.target.value})}
-        name="addListItem" id="addListItem" value={this.state.fieldDisplay}>
+        <input className="form-control" onClick={(event) => handler(event)} onChange={(event) => this.setState({fieldDisplay: event.target.value})}name="addListItem" id="addListItem" value={this.state.fieldDisplay}/><br />
 
-        <button type="submit">Submit</button>
+        <button onChange={this.preventSubmit} type="submit">Submit</button>
       </form>
     )
+
   }
 }
 export default ListMaker;
