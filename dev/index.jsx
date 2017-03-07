@@ -7,8 +7,7 @@ class App extends Component {
     constructor(props){
       super(props);
       this.state = {
-        listOfItems: ["Lorem Ipsum is simply dummy text of the printing", 
-        "and typesetting industry. Lorem Ipsum has been the industry's"]
+        listOfItems: []
       }
     }
 

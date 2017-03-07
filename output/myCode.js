@@ -22184,7 +22184,7 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      listOfItems: ["Lorem Ipsum is simply dummy text of the printing", "and typesetting industry. Lorem Ipsum has been the industry's"]
+      listOfItems: []
     };
     return _this;
   }
