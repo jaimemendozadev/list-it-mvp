@@ -11,14 +11,22 @@ class ListMaker extends Component {
 
   preventSubmit(event){
     event.preventDefault();
+    this.props.addCB(this.state.fieldDisplay);
+  }
+
+  handleInput (event) {
+    this.setState({
+      fieldDisplay: event.target.value
+    })
   }
 
   render(){
     return(
-      <form onSubmit={this.preventSubmit} className="form-inline" action="/add" method="POST">
+      <form onSubmit={this.preventSubmit.bind(this)} className="form-inline" action="/add" method="POST">
         <label htmlFor="addListItem">Write it down!</label>
         
-        <input className="form-control" onClick={(event) => addCB(event)} onChange={(event) => this.setState({fieldDisplay: event.target.value})}name="addListItem" id="addListItem" value={this.state.fieldDisplay}/><br />
+
+        <input onChange={this.handleInput.bind(this)} value={this.state.fieldDisplay} className="form-control" name="addListItem" id="addListItem" /><br />
 
         <button type="submit">Submit</button>
       </form>
@@ -27,3 +35,15 @@ class ListMaker extends Component {
   }
 }
 export default ListMaker;
+
+
+/*
+  To handle the form, you need an onChange on the input with a callback.
+
+  Every time the user types (changes the input), the callback sets the state.
+
+  So the app gets rerendered with each click.
+
+  As soon as the user finishes typing, the onSubmit at the top of the form
+  prevents the default and sends the state.fieldDisplay back to the parent App
+*/

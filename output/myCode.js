@@ -9795,25 +9795,27 @@ var ListMaker = function (_Component) {
     key: 'preventSubmit',
     value: function preventSubmit(event) {
       event.preventDefault();
+      this.props.addCB(this.state.fieldDisplay);
+    }
+  }, {
+    key: 'handleInput',
+    value: function handleInput(event) {
+      this.setState({
+        fieldDisplay: event.target.value
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         'form',
-        { onSubmit: this.preventSubmit, className: 'form-inline', action: '/add', method: 'POST' },
+        { onSubmit: this.preventSubmit.bind(this), className: 'form-inline', action: '/add', method: 'POST' },
         _react2.default.createElement(
           'label',
           { htmlFor: 'addListItem' },
           'Write it down!'
         ),
-        _react2.default.createElement('input', { className: 'form-control', onClick: function onClick(event) {
-            return addCB(event);
-          }, onChange: function onChange(event) {
-            return _this2.setState({ fieldDisplay: event.target.value });
-          }, name: 'addListItem', id: 'addListItem', value: this.state.fieldDisplay }),
+        _react2.default.createElement('input', { onChange: this.handleInput.bind(this), value: this.state.fieldDisplay, className: 'form-control', name: 'addListItem', id: 'addListItem' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
@@ -9828,6 +9830,17 @@ var ListMaker = function (_Component) {
 }(_react.Component);
 
 exports.default = ListMaker;
+
+/*
+  To handle the form, you need an onChange on the input with a callback.
+
+  Every time the user types (changes the input), the callback sets the state.
+
+  So the app gets rerendered with each click.
+
+  As soon as the user finishes typing, the onSubmit at the top of the form
+  prevents the default and sends the state.fieldDisplay back to the parent App
+*/
 
 /***/ }),
 /* 87 */
@@ -22178,6 +22191,8 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'addItem',
     value: function addItem(item) {
+      console.log(event.target.value);
+      console.log("hey there");
       var update = this.state.listOfItems.slice();
       update.push(item);
       this.setState({ listOfItems: update });

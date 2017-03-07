@@ -7,11 +7,14 @@ class App extends Component {
     constructor(props){
       super(props);
       this.state = {
-        listOfItems: ["Lorem Ipsum is simply dummy text of the printing", "and typesetting industry. Lorem Ipsum has been the industry's"]
+        listOfItems: ["Lorem Ipsum is simply dummy text of the printing", 
+        "and typesetting industry. Lorem Ipsum has been the industry's"]
       }
     }
 
     addItem(item) {
+      console.log(event.target.value);
+      console.log("hey there");
       let update = this.state.listOfItems.slice();
       update.push(item);
       this.setState({listOfItems: update});
@@ -29,6 +32,8 @@ class App extends Component {
       return(
         <div>
           <ListMaker addCB={this.addItem.bind(this)} />
+
+
           <ListView list={this.state.listOfItems} cb={this.deleteItem.bind(this)} />
           
         </div>
