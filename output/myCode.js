@@ -9794,7 +9794,15 @@ var ListMaker = function (_Component) {
   _createClass(ListMaker, [{
     key: 'preventSubmit',
     value: function preventSubmit(event) {
-      event.preventDefault();
+
+      /* If you use e.preventDefault() when
+        running on a server, the POST
+        won't get sent to the server.
+        only use e.preventDefault() for 
+        testing when coding the front end */
+
+      //event.preventDefault();
+
       this.props.addCB(this.state.fieldDisplay);
     }
   }, {
@@ -9812,10 +9820,10 @@ var ListMaker = function (_Component) {
         { onSubmit: this.preventSubmit.bind(this), className: 'form-inline', action: '/add', method: 'POST' },
         _react2.default.createElement(
           'label',
-          { htmlFor: 'addListItem' },
+          { htmlFor: 'listItem' },
           'Write it down!'
         ),
-        _react2.default.createElement('input', { onChange: this.handleInput.bind(this), value: this.state.fieldDisplay, className: 'form-control', name: 'addListItem', id: 'addListItem' }),
+        _react2.default.createElement('input', { onChange: this.handleInput.bind(this), value: this.state.fieldDisplay, className: 'form-control', name: 'listItem', id: 'listItem' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',

@@ -10,7 +10,15 @@ class ListMaker extends Component {
   }
 
   preventSubmit(event){
-    event.preventDefault();
+
+    /* If you use e.preventDefault() when
+      running on a server, the POST
+      won't get sent to the server.
+      only use e.preventDefault() for 
+      testing when coding the front end */
+
+    //event.preventDefault();
+    
     this.props.addCB(this.state.fieldDisplay);
   }
 
@@ -23,10 +31,10 @@ class ListMaker extends Component {
   render(){
     return(
       <form onSubmit={this.preventSubmit.bind(this)} className="form-inline" action="/add" method="POST">
-        <label htmlFor="addListItem">Write it down!</label>
+        <label htmlFor="listItem">Write it down!</label>
         
 
-        <input onChange={this.handleInput.bind(this)} value={this.state.fieldDisplay} className="form-control" name="addListItem" id="addListItem" /><br />
+        <input onChange={this.handleInput.bind(this)} value={this.state.fieldDisplay} className="form-control" name="listItem" id="listItem" /><br />
 
         <button type="submit">Submit</button>
       </form>

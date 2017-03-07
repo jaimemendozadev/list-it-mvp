@@ -1,6 +1,10 @@
 var express = require('express');
 var path = require('path');
+var bodyparser = require('body-parser');
 var app = express();
+
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
 
 
 /*Having trouble with paths. Originally had index.html
@@ -27,6 +31,10 @@ app.use('/output', express.static(__dirname + '/output') );
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.post('/add', function(req, res){
+  res.redirect('/')  
 });
 
 app.listen(3000, function () {
