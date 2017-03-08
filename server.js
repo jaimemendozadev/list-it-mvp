@@ -35,6 +35,10 @@ app.get('/list', controller.getEntireList);
 
 app.post('/add', controller.addToList);
 
+app.delete('/:key', controller.deleteListItem);
+
+
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 });

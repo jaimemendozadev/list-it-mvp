@@ -8,16 +8,6 @@ mongoose.Promise = Promise;
 
 
 
-module.exports.addToList = function(req, res){
-  
-  var item = req.body.listItem;
-
-  var newListItem = new Item({listItem: item});
-
-  newListItem.save().then(listItem => res.redirect("/"));
-
-}
-
 module.exports.getHomePage = function(req, res) {
   /* If you direct the client to the root / the first
     you hit the server, the server will serve the client
@@ -29,6 +19,22 @@ module.exports.getHomePage = function(req, res) {
   res.sendFile(path.resolve('./index.html'));
 }
 
+
 module.exports.getEntireList = function(req, res) {
   Item.find({}).then((list) => res.send(list));
+}
+
+
+module.exports.addToList = function(req, res){
+  
+  var item = req.body.listItem;
+
+  var newListItem = new Item({listItem: item});
+
+  newListItem.save().then(listItem => res.redirect("/"));
+
+}
+
+module.exports.deleteListItem = function(req, res) {
+  Item.remove({ _id: req.params.key }).then( deletedItem => res.redirect("/"));  
 }

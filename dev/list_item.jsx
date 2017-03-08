@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 function ListItem(props) {
   return(
-    <li onClick={(event) => props.func(props.idx)}>{props.item}</li>
+    //passing in an obj and rendering the value at key "listItem"
+    <li onClick={(event) => props.func(props.item["_id"])}>{props.item["listItem"]}</li>
         
   )
 }

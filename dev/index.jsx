@@ -8,19 +8,30 @@ import axios from 'axios';
 class App extends Component {
     constructor(props){
       super(props);
+      /* listOfItems was originally an array of strings
+         changed it to be an array of objects */
       this.state = {
         listOfItems: []
       }
     }
 
+
     componentDidMount() {
       console.log("inside componentDidMount");
       var newList;
 
+      /*
+        The way promises work is that we're making
+        an async call, we don't know when we're going
+        to get a response. When we do, we can do 
+        something with the response inside then.
+      */
+
       axios.get('http://localhost:3000/list')
       .then(res => {
-        newList = res.data.map((item) => item["listItem"]);
-        this.setState({listOfItems: newList});
+        console.log("data is " + JSON.stringify(res));
+
+        this.setState({listOfItems: res.data});
       });
 
     
@@ -34,10 +45,20 @@ class App extends Component {
     }
 
     deleteItem(key) {
+      //console.log("the key is " + key);
+      
       let update = this.state.listOfItems.slice();
-      update.splice(key, 1)
+
+      //console.log("length before filter " + update.length);
+      
+      update = update.filter((item) => item["_id"] != key)
+
+      //console.log("length after filter " + update.length);
 
       this.setState({listOfItems: update});
+
+      axios.delete(`http://localhost:3000/${key}`)
+      .then(console.log("delete request sent to server"));
       
     }
 

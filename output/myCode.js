@@ -9876,7 +9876,7 @@ function ListView(props) {
     'ul',
     null,
     props.list.map(function (item, idx) {
-      return _react2.default.createElement(_list_item2.default, { item: item, func: props.cb, key: idx, idx: idx });
+      return _react2.default.createElement(_list_item2.default, { item: item, func: props.cb, key: idx });
     })
   );
 }
@@ -9901,12 +9901,15 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ListItem(props) {
-  return _react2.default.createElement(
-    'li',
-    { onClick: function onClick(event) {
-        return props.func(props.idx);
-      } },
-    props.item
+  return (
+    //passing in an obj and rendering the value at key "listItem"
+    _react2.default.createElement(
+      "li",
+      { onClick: function onClick(event) {
+          return props.func(props.item["_id"]);
+        } },
+      props.item["listItem"]
+    )
   );
 }
 
@@ -22185,6 +22188,8 @@ var App = function (_Component) {
   function App(props) {
     _classCallCheck(this, App);
 
+    /* listOfItems was originally an array of strings
+       changed it to be an array of objects */
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
@@ -22201,11 +22206,17 @@ var App = function (_Component) {
       console.log("inside componentDidMount");
       var newList;
 
+      /*
+        The way promises work is that we're making
+        an async call, we don't know when we're going
+        to get a response. When we do, we can do 
+        something with the response inside then.
+      */
+
       _axios2.default.get('http://localhost:3000/list').then(function (res) {
-        newList = res.data.map(function (item) {
-          return item["listItem"];
-        });
-        _this2.setState({ listOfItems: newList });
+        console.log("data is " + JSON.stringify(res));
+
+        _this2.setState({ listOfItems: res.data });
       });
     }
   }, {
@@ -22218,10 +22229,21 @@ var App = function (_Component) {
   }, {
     key: 'deleteItem',
     value: function deleteItem(key) {
+      //console.log("the key is " + key);
+
       var update = this.state.listOfItems.slice();
-      update.splice(key, 1);
+
+      //console.log("length before filter " + update.length);
+
+      update = update.filter(function (item) {
+        return item["_id"] != key;
+      });
+
+      //console.log("length after filter " + update.length);
 
       this.setState({ listOfItems: update });
+
+      _axios2.default.delete('http://localhost:3000/' + key).then(console.log("delete request sent to server"));
     }
   }, {
     key: 'render',
