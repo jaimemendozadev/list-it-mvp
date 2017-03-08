@@ -22196,15 +22196,17 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       console.log("inside componentDidMount");
-      var newList = [];
+      var newList;
 
       _axios2.default.get('http://localhost:3000/list').then(function (res) {
-        res.forEach(function (item) {
-          return newList.push(item["listItem"]);
+        newList = res.data.map(function (item) {
+          return item["listItem"];
         });
+        _this2.setState({ listOfItems: newList });
       });
-      this.setState.listOfItems = newList;
     }
   }, {
     key: 'addItem',

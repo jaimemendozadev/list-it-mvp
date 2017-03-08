@@ -15,13 +15,16 @@ class App extends Component {
 
     componentDidMount() {
       console.log("inside componentDidMount");
-      var newList = [];
+      var newList;
 
       axios.get('http://localhost:3000/list')
       .then(res => {
-        res.forEach(item => newList.push(item["listItem"]))
+        newList = res.data.map((item) => item["listItem"]);
+        this.setState({listOfItems: newList});
       });
-      this.setState.listOfItems = newList;
+
+    
+      
     }
 
     addItem(item) {
