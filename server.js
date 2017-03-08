@@ -29,10 +29,9 @@ app.use('/css', express.static(__dirname + '/css') );
 app.use('/output', express.static(__dirname + '/output') );
 
 
+app.get('/', controller.getHomePage);
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
+app.get('/list', controller.getEntireList);
 
 app.post('/add', controller.addToList);
 

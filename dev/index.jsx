@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ListMaker from './list_maker.jsx';
 import ListView from './list_view.jsx';
+import axios from 'axios';
+
 
 class App extends Component {
     constructor(props){
@@ -9,6 +11,17 @@ class App extends Component {
       this.state = {
         listOfItems: []
       }
+    }
+
+    componentDidMount() {
+      console.log("inside componentDidMount");
+      var newList = [];
+
+      axios.get('http://localhost:3000/list')
+      .then(res => {
+        res.forEach(item => newList.push(item["listItem"]))
+      });
+      this.setState.listOfItems = newList;
     }
 
     addItem(item) {
